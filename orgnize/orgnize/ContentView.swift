@@ -32,7 +32,11 @@ struct Arc: Shape {
 }
 
 
+
+
 struct ContentView: View {
+    
+    @State var ArcGroup = []
     
     @State private var position = CGPoint(x: 100, y: 100)
     @State private var initPosition1 = CGPoint(x:100, y:0)
@@ -139,11 +143,13 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            Color.black.ignoresSafeArea()
+            Color("violet")
             VStack{
                 
                 Text("Start Time:"+startTime)
                 Text("End Time:"+endTime)
+                
+
                 
                 Circle()
                     .frame(width: dragDiametr + 20, height: dragDiametr + 20)
@@ -211,8 +217,9 @@ struct ContentView: View {
                                 )
                           
                                 .overlay(
-                                    
                                     Group {
+                                        
+                                        
                                     
                                     Arc(
                                         startAngle: .degrees(startDegree),
@@ -259,17 +266,84 @@ struct ContentView: View {
                                             }
                                         
                                         )
+                                        
+                                        
+                                        
+                                        
                                     
-                                })
+                                }
+                                    )
                                 .overlay(
                                     Circle()
                                         .frame(width:dragDiametr - 20, height: dragDiametr - 20)
                                         .foregroundColor(Color.blue)
                                 )
                             
+                            
+                            
+                            
                         }
                     
                     )
+                
+                Button(action: {
+                    print(ArcGroup)
+                    ArcGroup.append(
+                        Group {
+                        
+                        Arc(
+                            startAngle: .degrees(startDegree),
+                            endAngle: .degrees(endDegree), clockwise: false)
+                          .stroke(Color.blue, lineWidth: 20)
+                          .frame(width: dragDiametr, height: dragDiametr)
+                     
+                       
+                        Circle()
+                            .frame(width: dragDiametr / 10, height: dragDiametr / 10)
+                            .foregroundColor(Color.red)
+                            .position(x: initPosition1.x + 20, y: initPosition1.y + 20)
+                            .gesture(DragGesture()
+                                .onChanged(){value in
+                                    let currentLocation = value.location
+                                    let center = CGPoint(x: self.dragDiametr/2, y: self.dragDiametr/2)
+                                    let distance = center.distance(to:currentLocation)
+                                    print("boundary boundary")
+                                    let k = (self.dragDiametr / 2) / distance
+                                    let newLocationX = (currentLocation.x - center.x) * k+center.x
+                                    let newLocationY = (currentLocation.y - center.y) * k+center.y
+                                    self.initPosition1 = CGPoint(x: newLocationX, y: newLocationY)
+                                    updateArc()
+                                    
+                                }
+                            
+                            )
+                        Circle()
+                            .frame(width: dragDiametr / 10, height: dragDiametr / 10)
+                            .foregroundColor(Color.cyan)
+                            .position(x: initPosition2.x + 20, y: initPosition2.y + 20)
+                            .gesture(DragGesture()
+                                .onChanged(){value in
+                                    let currentLocation = value.location
+                                    let center = CGPoint(x: self.dragDiametr/2, y: self.dragDiametr/2)
+                                    let distance = center.distance(to:currentLocation)
+                                    print("boundary boundary")
+                                    let k = (self.dragDiametr / 2) / distance
+                                    let newLocationX = (currentLocation.x - center.x) * k+center.x
+                                    let newLocationY = (currentLocation.y - center.y) * k+center.y
+                                    self.initPosition2 = CGPoint(x: newLocationX, y: newLocationY)
+                                    updateArc()
+                                    
+                                }
+                            
+                            )
+                        
+                    }
+                    )
+                }) {
+                        Label("Add block", systemImage: "folder.badge.plus")
+                    }
+                
+                
                 
                 
             }
@@ -279,6 +353,8 @@ struct ContentView: View {
         }
         
         .padding()
+        
+        
     }
     
 }
