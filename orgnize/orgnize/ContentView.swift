@@ -44,6 +44,7 @@ class ArcTaskGroup: ObservableObject{
     
     var headColor: Color
     var arcColor: Color
+    var inactiveColor: Color
     
 
     init(){
@@ -58,6 +59,7 @@ class ArcTaskGroup: ObservableObject{
         
         self.headColor = Color("new_purple")
         self.arcColor = Color("light_green")
+        self.inactiveColor = Color("inactive")
         
         self.tasks = []
         
@@ -80,6 +82,8 @@ struct ContentView: View {
     
     @State private var startTime = ""
     @State private var endTime = ""
+    
+    @State private var focus = false
     
     
     
@@ -184,148 +188,105 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             Color("pale_black")
-            VStack{
+            HStack(alignment: .top, spacing: 50){
                 
-                Text("Start Time:"+startTime)
-                Text("End Time:"+endTime)
-                
-                
-                
-                
+                VStack{
+                    
+                    Text("Start Time:"+startTime)
+                    Text("End Time:"+endTime)
+                    
+                    
+                    
+                    
 
-                
-                Circle()
-                    .frame(width: dragDiametr + 20, height: dragDiametr + 20)
-                    .foregroundColor(Color.white)
-                    .padding(20)
-                    .overlay(
-                        
-                        Group{
-                            Circle()
-                                .frame(width: dragDiametr, height: dragDiametr)
-                                .foregroundColor(Color.white)
-                                .padding(20)
-                                .overlay(
-                                    
-                                    Group {
-                                        // -- 12 O' Clock
-                                        Text("12")
-                                            .frame(width: dragDiametr / 10, height: dragDiametr / 10)
-                                            .position(x:(dragDiametr/2) + 20,y:0)
-                                            .foregroundColor(Color.gray)
+                    
+                    Circle()
+                        .frame(width: dragDiametr + 20, height: dragDiametr + 20)
+                        .foregroundColor(Color("dash_purple"))
+                        .padding(20)
+                        .overlay(
+                            
+                            Group{
+                                Circle()
+                                    .frame(width: dragDiametr, height: dragDiametr)
+                                    .foregroundColor(Color("dash_purple"))
+                                    .padding(20)
+                                    .overlay(
                                         
-                                        // -- 1 O' Clock
-                                        Text("1")
-                                            .frame(width: dragDiametr / 10, height: dragDiametr / 10)
-                                            .position(x:(dragDiametr/2) + (dragDiametr/6) + 40,y: (dragDiametr/6) - 20)
-                                            .foregroundColor(Color.gray)
-                                        
-                                        // -- 2 O' Clock
-                                        Text("2")
-                                            .frame(width: dragDiametr / 10, height: dragDiametr / 10)
-                                            .position(x:(dragDiametr/2) + (dragDiametr/6) + (dragDiametr/6) + 60,y: (dragDiametr/6) + (dragDiametr/6) - 10)
-                                            .foregroundColor(Color.gray)
-                                        
-                                        // -- 3 O' Clock
-                                        Text("3")
-                                            .frame(width: dragDiametr / 10, height: dragDiametr / 10)
-                                            .position(x:dragDiametr + 40,y:dragDiametr/2 + 20)
-                                            .foregroundColor(Color.gray)
-                                        
-                                        // -- 4 O' Clock
-                                        Text("4")
-                                            .frame(width: dragDiametr / 10, height: dragDiametr / 10)
-                                            .position(x:(dragDiametr/2) + (dragDiametr/6) + (dragDiametr/6) + 60,y: (dragDiametr/2) + (dragDiametr/6) + 50)
-                                            .foregroundColor(Color.gray)
-                                        
-                                        // -- 5 O' Clock
-                                        Text("5")
-                                            .frame(width: dragDiametr / 10, height: dragDiametr / 10)
-                                            .position(x:(dragDiametr/2) + (dragDiametr/6) + 50,y: (dragDiametr/2) + (dragDiametr/6) + (dragDiametr/6) + 60)
-                                            .foregroundColor(Color.gray)
-                                        
-                                        // -- 6 O' Clock
-                                        Text("6")
-                                            .frame(width: dragDiametr / 10, height: dragDiametr / 10)
-                                            .position(x:dragDiametr/2 + 20,y:dragDiametr + 40)
-                                            .foregroundColor(Color.gray)
-                                        
-                                        // -- 9 O' Clock
-                                        Text("9")
-                                            .frame(width: dragDiametr / 10, height: dragDiametr / 10)
-                                            .position(x:0,y:dragDiametr/2 + 20)
-                                            .foregroundColor(Color.gray)
-                                        
-                                    }
-                                )
-                                .overlay(
-                                    
-                                    ZStack {
-                                        ForEach(0..<arcTaskGroup.count, id: \.self){
-                                            
-                                            let index = $0
-                                            
-                                            Arc(
-                                                startAngle: .degrees(arcTaskGroup[$0].startDegree),
-                                                endAngle: .degrees(arcTaskGroup[$0].endDegree), clockwise: false)
-                                            .stroke(Color.blue, lineWidth: 20)
-                                            .frame(width: dragDiametr, height: dragDiametr)
-                                            
-                                            
-                                            
-                                            Circle()
+                                        Group {
+                                            // -- 12 O' Clock
+                                            Text("12")
                                                 .frame(width: dragDiametr / 10, height: dragDiametr / 10)
-                                                .foregroundColor(Color.red)
-                                                .position(x: arcTaskGroup[$0].position1.x + 20, y: arcTaskGroup[$0].position1.y + 20)
-                                                .gesture(DragGesture()
-                                                    .onChanged(){value in
-                                                        let currentLocation = value.location
-                                                        let center = CGPoint(x: self.dragDiametr/2, y: self.dragDiametr/2)
-                                                        let distance = center.distance(to:currentLocation)
-                                                        print("boundary boundary")
-                                                        let k = (self.dragDiametr / 2) / distance
-                                                        let newLocationX = (currentLocation.x - center.x) * k+center.x
-                                                        let newLocationY = (currentLocation.y - center.y) * k+center.y
-                                                        //_ = CGPoint(x: newLocationX, y: newLocationY)
-                                                        //arcTaskGroup[$0].position1 = newPosition1
-                                                        updateArc(position1: CGPoint(x: newLocationX, y: newLocationY), position2: arcTaskGroup[index].position2, index: index)
-                                                        
-                                                    })
+                                                .position(x:(dragDiametr/2) + 20,y:0)
+                                                .foregroundColor(Color.gray)
                                             
-                                            Circle()
+                                            // -- 1 O' Clock
+                                            Text("1")
                                                 .frame(width: dragDiametr / 10, height: dragDiametr / 10)
-                                                .foregroundColor(Color.cyan)
-                                                .position(x: arcTaskGroup[$0].position2.x + 20, y: arcTaskGroup[$0].position2.y + 20)
-                                                .gesture(DragGesture()
-                                                    .onChanged(){value in
-                                                        let currentLocation = value.location
-                                                        let center = CGPoint(x: self.dragDiametr/2, y: self.dragDiametr/2)
-                                                        let distance = center.distance(to:currentLocation)
-                                                        print("boundary boundary")
-                                                        let k = (self.dragDiametr / 2) / distance
-                                                        let newLocationX = (currentLocation.x - center.x) * k+center.x
-                                                        let newLocationY = (currentLocation.y - center.y) * k+center.y
-                                                        //_ = CGPoint(x: newLocationX, y: newLocationY)
-                                                        //arcTaskGroup[$0].position2 = newPosition2
-                                                        updateArc(position1: arcTaskGroup[index].position1, position2: CGPoint(x: newLocationX, y: newLocationY), index: index)
-                                                       
-                                                    })
+                                                .position(x:(dragDiametr/2) + (dragDiametr/6) + 40,y: (dragDiametr/6) - 20)
+                                                .foregroundColor(Color.gray)
                                             
+                                            // -- 2 O' Clock
+                                            Text("2")
+                                                .frame(width: dragDiametr / 10, height: dragDiametr / 10)
+                                                .position(x:(dragDiametr/2) + (dragDiametr/6) + (dragDiametr/6) + 60,y: (dragDiametr/6) + (dragDiametr/6) - 10)
+                                                .foregroundColor(Color.gray)
+                                            
+                                            // -- 3 O' Clock
+                                            Text("3")
+                                                .frame(width: dragDiametr / 10, height: dragDiametr / 10)
+                                                .position(x:dragDiametr + 40,y:dragDiametr/2 + 20)
+                                                .foregroundColor(Color.gray)
+                                            
+                                            // -- 4 O' Clock
+                                            Text("4")
+                                                .frame(width: dragDiametr / 10, height: dragDiametr / 10)
+                                                .position(x:(dragDiametr/2) + (dragDiametr/6) + (dragDiametr/6) + 60,y: (dragDiametr/2) + (dragDiametr/6) + 50)
+                                                .foregroundColor(Color.gray)
+                                            
+                                            // -- 5 O' Clock
+                                            Text("5")
+                                                .frame(width: dragDiametr / 10, height: dragDiametr / 10)
+                                                .position(x:(dragDiametr/2) + (dragDiametr/6) + 50,y: (dragDiametr/2) + (dragDiametr/6) + (dragDiametr/6) + 60)
+                                                .foregroundColor(Color.gray)
+                                            
+                                            // -- 6 O' Clock
+                                            Text("6")
+                                                .frame(width: dragDiametr / 10, height: dragDiametr / 10)
+                                                .position(x:dragDiametr/2 + 20,y:dragDiametr + 40)
+                                                .foregroundColor(Color.gray)
+                                            
+                                            // -- 9 O' Clock
+                                            Text("9")
+                                                .frame(width: dragDiametr / 10, height: dragDiametr / 10)
+                                                .position(x:0,y:dragDiametr/2 + 20)
+                                                .foregroundColor(Color.gray)
+                                            
+                                        }
+                                    )
+                                    .overlay(
                                         
-                                            /*
-                                            Group {
+                                        ZStack {
+                                            ForEach(0..<arcTaskGroup.count, id: \.self){
+                                                
+                                                let index = $0
                                                 
                                                 Arc(
                                                     startAngle: .degrees(arcTaskGroup[$0].startDegree),
                                                     endAngle: .degrees(arcTaskGroup[$0].endDegree), clockwise: false)
-                                                .stroke(Color.blue, lineWidth: 20)
+                                                .stroke(((index != (arcTaskGroup.count - 1)) || !focus)  ? arcTaskGroup[$0].inactiveColor : arcTaskGroup[$0].arcColor, lineWidth: 20)
                                                 .frame(width: dragDiametr, height: dragDiametr)
+                                                .onTapGesture(perform: {
+                                                    focus = true
+                                                    arcTaskGroup.append(arcTaskGroup[index])
+                                                    arcTaskGroup.remove(at: index)
+                                                })
                                                 
                                                 
                                                 
                                                 Circle()
                                                     .frame(width: dragDiametr / 10, height: dragDiametr / 10)
-                                                    .foregroundColor(Color.red)
+                                                    .foregroundColor(((index != (arcTaskGroup.count - 1)) || !focus) ? arcTaskGroup[$0].inactiveColor : arcTaskGroup[$0].headColor)
                                                     .position(x: arcTaskGroup[$0].position1.x + 20, y: arcTaskGroup[$0].position1.y + 20)
                                                     .gesture(DragGesture()
                                                         .onChanged(){value in
@@ -336,15 +297,15 @@ struct ContentView: View {
                                                             let k = (self.dragDiametr / 2) / distance
                                                             let newLocationX = (currentLocation.x - center.x) * k+center.x
                                                             let newLocationY = (currentLocation.y - center.y) * k+center.y
-                                                            let newPosition1 = CGPoint(x: newLocationX, y: newLocationY)
+                                                            //_ = CGPoint(x: newLocationX, y: newLocationY)
                                                             //arcTaskGroup[$0].position1 = newPosition1
-                                                            updateArc()
+                                                            updateArc(position1: CGPoint(x: newLocationX, y: newLocationY), position2: arcTaskGroup[index].position2, index: index)
                                                             
                                                         })
                                                 
                                                 Circle()
                                                     .frame(width: dragDiametr / 10, height: dragDiametr / 10)
-                                                    .foregroundColor(Color.cyan)
+                                                    .foregroundColor(((index != (arcTaskGroup.count - 1)) || !focus) ? arcTaskGroup[$0].inactiveColor : arcTaskGroup[$0].headColor)
                                                     .position(x: arcTaskGroup[$0].position2.x + 20, y: arcTaskGroup[$0].position2.y + 20)
                                                     .gesture(DragGesture()
                                                         .onChanged(){value in
@@ -355,52 +316,55 @@ struct ContentView: View {
                                                             let k = (self.dragDiametr / 2) / distance
                                                             let newLocationX = (currentLocation.x - center.x) * k+center.x
                                                             let newLocationY = (currentLocation.y - center.y) * k+center.y
-                                                            let newPosition2 = CGPoint(x: newLocationX, y: newLocationY)
+                                                            //_ = CGPoint(x: newLocationX, y: newLocationY)
                                                             //arcTaskGroup[$0].position2 = newPosition2
-                                                            updateArc()
+                                                            updateArc(position1: arcTaskGroup[index].position1, position2: CGPoint(x: newLocationX, y: newLocationY), index: index)
                                                            
                                                         })
                                                 
-                                            
+                     
                                                 
-                                            } // Group
-                                             
-                                             */
+                                            } // For-Each
                                             
-                                        } // For-Each
+                                        } // Z-Stack
                                         
-                                    } // Z-Stack
-                                    
-                                )
-                                .overlay(
-                                    Circle()
-                                        .frame(width:dragDiametr - 20, height: dragDiametr - 20)
-                                        .foregroundColor(Color.blue)
-                                )
-                            
-                            
-                            
-                            
-                        }
+                                    )
+                                    .overlay(
+                                        Circle()
+                                            .frame(width:dragDiametr - 20, height: dragDiametr - 20)
+                                            .foregroundColor(Color("pale_black"))
+                                    )
+                                
+                                
+                                
+                                
+                            } // Group
+                        
+                        ) // Circle-overlay
                     
-                    )
+                    Button("Add Block +",action: addBlock)
+                    
+                   
+        
+                    
+                    
+                    
+                    
+                } // Vstack
                 
-                Button("Add Block +",action: addBlock)
                 
-               
-    
+                Text("Tasks")
                 
-                
-                
-                
-            }
+            } // HStack
             
             
         
-        }
+        } // ZStack
         
         .padding()
-        
+        .onTapGesture(perform: {
+            focus = false
+        })
         
     }
     
