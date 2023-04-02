@@ -256,12 +256,44 @@ struct ContentView: View {
                                                 .position(x:dragDiametr/2 + 20,y:dragDiametr + 40)
                                                 .foregroundColor(Color.gray)
                                             
+                                            // -- 7 O' Clock
+                                            Text("7")
+                                                .frame(width: dragDiametr / 10, height: dragDiametr / 10)
+                                                .position(x:(dragDiametr/2) - 40,y: (dragDiametr/2) + (dragDiametr/6) + (dragDiametr/6) + 60)
+                                                .foregroundColor(Color.gray)
+                                            
+                                            // -- 8 O' Clock
+                                            Text("8")
+                                                .frame(width: dragDiametr / 10, height: dragDiametr / 10)
+                                                .position(x:(dragDiametr/2) - 85,y: (dragDiametr/2) + (dragDiametr/6) + 50)
+                                                .foregroundColor(Color.gray)
+                                            
                                             // -- 9 O' Clock
                                             Text("9")
                                                 .frame(width: dragDiametr / 10, height: dragDiametr / 10)
                                                 .position(x:0,y:dragDiametr/2 + 20)
                                                 .foregroundColor(Color.gray)
                                             
+                                            
+                                            
+                                            
+                                            
+                                            
+                                        }
+                                    )
+                                    .overlay(
+                                        Group{
+                                            // -- 10 O' Clock
+                                            Text("10")
+                                                .frame(width: dragDiametr / 10, height: dragDiametr / 10)
+                                                .position(x:(dragDiametr/2) - 85,y: (dragDiametr/6) + (dragDiametr/6) - 10)
+                                                .foregroundColor(Color.gray)
+                                            
+                                            // -- 11 O' Clock
+                                            Text("11")
+                                                .frame(width: dragDiametr / 10, height: dragDiametr / 10)
+                                                .position(x:(dragDiametr/2) - 40,y: (dragDiametr/6) - 20)
+                                                .foregroundColor(Color.gray)
                                         }
                                     )
                                     .overlay(
@@ -299,6 +331,9 @@ struct ContentView: View {
                                                             let newLocationY = (currentLocation.y - center.y) * k+center.y
                                                             //_ = CGPoint(x: newLocationX, y: newLocationY)
                                                             //arcTaskGroup[$0].position1 = newPosition1
+                                                            focus = true
+                                                            arcTaskGroup.append(arcTaskGroup[index])
+                                                            arcTaskGroup.remove(at: index)
                                                             updateArc(position1: CGPoint(x: newLocationX, y: newLocationY), position2: arcTaskGroup[index].position2, index: index)
                                                             
                                                         })
@@ -318,6 +353,9 @@ struct ContentView: View {
                                                             let newLocationY = (currentLocation.y - center.y) * k+center.y
                                                             //_ = CGPoint(x: newLocationX, y: newLocationY)
                                                             //arcTaskGroup[$0].position2 = newPosition2
+                                                            focus = true
+                                                            arcTaskGroup.append(arcTaskGroup[index])
+                                                            arcTaskGroup.remove(at: index)
                                                             updateArc(position1: arcTaskGroup[index].position1, position2: CGPoint(x: newLocationX, y: newLocationY), index: index)
                                                            
                                                         })
