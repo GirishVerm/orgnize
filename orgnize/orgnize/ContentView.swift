@@ -85,6 +85,16 @@ struct ContentView: View {
     
     @State private var focus = false
     
+    @State private var ArcIndex = 0
+    
+    private var oceans = [
+        "Pacific",
+        "Atlantic",
+        "Indian",
+        "Southern",
+        "Arctic"
+    ]
+    
     
     
     private var dragDiametr: CGFloat = 200.0
@@ -187,10 +197,11 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            Color("pale_black")
-            HStack(alignment: .top, spacing: 50){
+            //Color("pale_black")
+            HStack(alignment: .center, spacing: 50){
                 
-                VStack{
+                Spacer()
+                VStack(alignment: .center){
                     
                     Text("Start Time:"+startTime)
                     Text("End Time:"+endTime)
@@ -309,6 +320,7 @@ struct ContentView: View {
                                                 .stroke(((index != (arcTaskGroup.count - 1)) || !focus)  ? arcTaskGroup[$0].inactiveColor : arcTaskGroup[$0].arcColor, lineWidth: 20)
                                                 .frame(width: dragDiametr, height: dragDiametr)
                                                 .onTapGesture(perform: {
+                                                    ArcIndex = index
                                                     focus = true
                                                     arcTaskGroup.append(arcTaskGroup[index])
                                                     arcTaskGroup.remove(at: index)
@@ -334,6 +346,7 @@ struct ContentView: View {
                                                             focus = true
                                                             arcTaskGroup.append(arcTaskGroup[index])
                                                             arcTaskGroup.remove(at: index)
+                                                            ArcIndex = index
                                                             updateArc(position1: CGPoint(x: newLocationX, y: newLocationY), position2: arcTaskGroup[index].position2, index: index)
                                                             
                                                         })
@@ -356,6 +369,7 @@ struct ContentView: View {
                                                             focus = true
                                                             arcTaskGroup.append(arcTaskGroup[index])
                                                             arcTaskGroup.remove(at: index)
+                                                            ArcIndex = index
                                                             updateArc(position1: arcTaskGroup[index].position1, position2: CGPoint(x: newLocationX, y: newLocationY), index: index)
                                                            
                                                         })
@@ -390,8 +404,90 @@ struct ContentView: View {
                     
                 } // Vstack
                 
+                Snap
+                List{
+                    Section{
+                        
+                        ZStack {
+                                            RoundedRectangle(cornerRadius: 18)
+                                                .fill(item.color)
+                                            Text(item.title)
+                                                .padding()
+                                        }
+                        
+                    }
+                    Section{
+                        
+                        Text("list1")
+                        Text("list1")
+                        Text("list1")
+                        
+                    }
+                    Section{
+                        
+                        Text("list1")
+                        Text("list1")
+                        Text("list1")
+                        
+                    }
+                    
+                    Section{
+                        
+                        Text("list1")
+                        Text("list1")
+                        Text("list1")
+                        
+                    }
+                    
+                    Section{
+                        
+                        Text("list1")
+                        Text("list1")
+                        Text("list1")
+                        
+                    }
+                    
+                    Section{
+                        
+                        Text("list1")
+                        Text("list1")
+                        Text("list1")
+                        
+                    }
+                    
+                    Section{
+                        
+                        Text("list1")
+                        Text("list1")
+                        Text("list1")
+                        
+                    }
+                    
+                    Section{
+                        
+                        Text("list1")
+                        Text("list1")
+                        Text("list1")
+                        
+                    }
+                }
                 
-                Text("Tasks")
+                
+                //Spacer()
+                //NavigationView{
+                  //  ScrollView{
+                    //    VStack{
+                      //
+                        //}
+                    //}
+                //}
+                
+            
+           
+                
+                //Spacer()
+                
+                
                 
             } // HStack
             
