@@ -197,9 +197,8 @@ struct ContentView: View {
     
     var body: some View {
     
-        ScrollView(.vertical){
-                
-                
+        ZStack{
+            ScrollView{
                 VStack{
                     
                     Text("Start Time:"+startTime)
@@ -209,6 +208,7 @@ struct ContentView: View {
                     
                     
 
+                    Spacer()
                     
                     Circle()
                         .frame(width: dragDiametr + 20, height: dragDiametr + 20)
@@ -230,64 +230,20 @@ struct ContentView: View {
                                                 .position(x:(dragDiametr/2) + 20,y:0)
                                                 .foregroundColor(Color.gray)
                                             
-                                            /*
-                                            // -- 1 O' Clock
-                                            Text("1")
-                                                .frame(width: dragDiametr / 10, height: dragDiametr / 10)
-                                                .position(x:(dragDiametr/2) + (dragDiametr/6) + 40,y: (dragDiametr/6) - 20)
-                                                .foregroundColor(Color.gray)
-                                            
-                                            // -- 2 O' Clock
-                                            Text("2")
-                                                .frame(width: dragDiametr / 10, height: dragDiametr / 10)
-                                                .position(x:(dragDiametr/2) + (dragDiametr/6) + (dragDiametr/6) + 60,y: (dragDiametr/6) + (dragDiametr/6) - 10)
-                                                .foregroundColor(Color.gray)
-                                             
-                                            */
+                                   
                                             
                                             // -- 3 O' Clock
                                             Text("—")
                                                 .frame(width: dragDiametr / 10, height: dragDiametr / 10)
                                                 .position(x:dragDiametr + 40,y:dragDiametr/2 + 20)
                                                 .foregroundColor(Color.gray)
-                                            
-                                            /*
-                                            // -- 4 O' Clock
-                                            Text("4")
-                                                .frame(width: dragDiametr / 10, height: dragDiametr / 10)
-                                                .position(x:(dragDiametr/2) + (dragDiametr/6) + (dragDiametr/6) + 60,y: (dragDiametr/2) + (dragDiametr/6) + 50)
-                                                .foregroundColor(Color.gray)
-                                            
-                                            // -- 5 O' Clock
-                                            Text("5")
-                                                .frame(width: dragDiametr / 10, height: dragDiametr / 10)
-                                                .position(x:(dragDiametr/2) + (dragDiametr/6) + 50,y: (dragDiametr/2) + (dragDiametr/6) + (dragDiametr/6) + 60)
-                                                .foregroundColor(Color.gray)
-                                             
-                                            */
-                                            
+                           
                                             // -- 6 O' Clock
                                             Text("|")
                                                 .frame(width: dragDiametr / 10, height: dragDiametr / 10)
                                                 .position(x:dragDiametr/2 + 20,y:dragDiametr + 40)
                                                 .foregroundColor(Color.gray)
-                                            
-                                            /*
-                                            
-                                            // -- 7 O' Clock
-                                            Text("7")
-                                                .frame(width: dragDiametr / 10, height: dragDiametr / 10)
-                                                .position(x:(dragDiametr/2) - 40,y: (dragDiametr/2) + (dragDiametr/6) + (dragDiametr/6) + 60)
-                                                .foregroundColor(Color.gray)
-                                            
-                                            
-                                            // -- 8 O' Clock
-                                            Text("8")
-                                                .frame(width: dragDiametr / 10, height: dragDiametr / 10)
-                                                .position(x:(dragDiametr/2) - 85,y: (dragDiametr/2) + (dragDiametr/6) + 50)
-                                                .foregroundColor(Color.gray)
-                                            */
-                                            
+                               
                                             // -- 9 O' Clock
                                             Text("—")
                                                 .frame(width: dragDiametr / 10, height: dragDiametr / 10)
@@ -300,24 +256,6 @@ struct ContentView: View {
                                             
                                             
                                         }
-                                    )
-                                    .overlay(
-                                        
-                                        /*
-                                        Group{
-                                            // -- 10 O' Clock
-                                            Text("10")
-                                                .frame(width: dragDiametr / 10, height: dragDiametr / 10)
-                                                .position(x:(dragDiametr/2) - 85,y: (dragDiametr/6) + (dragDiametr/6) - 10)
-                                                .foregroundColor(Color.gray)
-                                            
-                                            // -- 11 O' Clock
-                                            Text("11")
-                                                .frame(width: dragDiametr / 10, height: dragDiametr / 10)
-                                                .position(x:(dragDiametr/2) - 40,y: (dragDiametr/6) - 20)
-                                                .foregroundColor(Color.gray)
-                                        }
-                                         */
                                     )
                                     .overlay(
                                         
@@ -406,88 +344,27 @@ struct ContentView: View {
                         
                         ) // Circle-overlay
                     
+                    Spacer()
+                    
                     Button("Add Block +",action: addBlock)
-                    
-                    ForEach(0..<arcTaskGroup.count, id: \.self){
-                        let index = $0
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 10)
-                                .fill(Color("dark_grey"))
-                            
-                            VStack{
-                                ForEach(0..<arcTaskGroup[index].tasks.count, id: \.self){
-                                    
-                                    let index2 = $0
-                                    Text(arcTaskGroup[index].tasks[index2])
-                                        .padding()
-                                }
-                                
-                                ZStack{
-                                    RoundedRectangle(cornerRadius: 10)
-                                        .fill(Color("dark_grey")).opacity(0.5).padding()
-                                    Button("Add Task +",action: addBlock).padding()
-                                }
-                                
-                                
-                            }
-                            
-                            
-                            
-                        }
-                    }
-                    
-                    /*
-                    VStack{
-                        List{
-                            
-                            ForEach(0..<arcTaskGroup.count, id: \.self){
-                                let index = $0
-                                Section{
-                                    
-                                    ZStack {
-                                        RoundedRectangle(cornerRadius: 10)
-                                            .fill(Color("dark_grey"))
-                                        
-                                        VStack{
-                                            ForEach(0..<arcTaskGroup[index].tasks.count, id: \.self){
-                                                
-                                                let index2 = $0
-                                                Text(arcTaskGroup[index].tasks[index2])
-                                                    .padding()
-                                            }
-                                            
-                                            ZStack{
-                                                RoundedRectangle(cornerRadius: 10)
-                                                    .fill(Color("dark_grey")).opacity(0.5).padding()
-                                                Button("Add Task +",action: addBlock).padding()
-                                            }
-                                            
-                                            
-                                        }
-                                        
-                                        
-                                        
-                                    }
-                                    
-                                }
-                            }
-                            
-                           
-                        } // List
-                    }
-                    */
-                    
-                    
-                   
-        
-                    
                     
                     
                     
                 } // Vstack
-                
-                
-            }
+            }// ScrollView
+            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            .edgesIgnoringSafeArea(.all)
+            
+            /*
+            ScrollView{
+                    
+                    
+                    
+                    
+            } // Scrollable View
+             
+            */
+        } // Z Stack
         
     }
     
