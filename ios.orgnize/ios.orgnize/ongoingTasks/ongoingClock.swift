@@ -145,8 +145,6 @@ struct ongoingClock: View{
             
             if(group.isTimeInRange(time: timeToCheck)){
                 
-                print(group.startTime)
-                print(group.endTime)
                 
                 groupObj.ongoingGroup = group.id
                 

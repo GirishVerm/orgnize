@@ -19,6 +19,7 @@
 		9D54410029F6FBA200CBC64C /* ios_orgnizeUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D5440FF29F6FBA200CBC64C /* ios_orgnizeUITestsLaunchTests.swift */; };
 		9D54410D29F6FBE000CBC64C /* tabView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D54410C29F6FBE000CBC64C /* tabView.swift */; };
 		9D7FFA2129F9EF6300EC7EBA /* editTasks.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D7FFA2029F9EF6300EC7EBA /* editTasks.swift */; };
+		9D8D117329FF0E8400062F53 /* CRUDFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9D8D117229FF0E8400062F53 /* CRUDFile.swift */; };
 		9DD1EF1429FDA03500B6BE34 /* 2.png in Resources */ = {isa = PBXBuildFile; fileRef = 9DD1EF1129FDA03500B6BE34 /* 2.png */; };
 		9DD1EF1529FDA03500B6BE34 /* 3.png in Resources */ = {isa = PBXBuildFile; fileRef = 9DD1EF1229FDA03500B6BE34 /* 3.png */; };
 		9DD1EF1629FDA03500B6BE34 /* 1.png in Resources */ = {isa = PBXBuildFile; fileRef = 9DD1EF1329FDA03500B6BE34 /* 1.png */; };
@@ -59,6 +60,8 @@
 		9D5440FF29F6FBA200CBC64C /* ios_orgnizeUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ios_orgnizeUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		9D54410C29F6FBE000CBC64C /* tabView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = tabView.swift; sourceTree = "<group>"; };
 		9D7FFA2029F9EF6300EC7EBA /* editTasks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = editTasks.swift; sourceTree = "<group>"; };
+		9D8D117229FF0E8400062F53 /* CRUDFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CRUDFile.swift; sourceTree = "<group>"; };
+		9D8D117429FF19B300062F53 /* ios-orgnize-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "ios-orgnize-Info.plist"; sourceTree = SOURCE_ROOT; };
 		9DD1EF1129FDA03500B6BE34 /* 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 2.png; sourceTree = "<group>"; };
 		9DD1EF1229FDA03500B6BE34 /* 3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 3.png; sourceTree = "<group>"; };
 		9DD1EF1329FDA03500B6BE34 /* 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 1.png; sourceTree = "<group>"; };
@@ -114,6 +117,7 @@
 		9D5440E129F6FBA100CBC64C /* ios.orgnize */ = {
 			isa = PBXGroup;
 			children = (
+				9D8D117429FF19B300062F53 /* ios-orgnize-Info.plist */,
 				9DD1EF1029FDA02000B6BE34 /* assets */,
 				9D5440E229F6FBA100CBC64C /* ios_orgnizeApp.swift */,
 				9D54410C29F6FBE000CBC64C /* tabView.swift */,
@@ -124,6 +128,7 @@
 				9D36D85329F769AF00AA9E33 /* arcTaskGroup.swift */,
 				9DDD015D29F8A3E9001E3E02 /* externalStructs.swift */,
 				9DD1EF1729FDA14600B6BE34 /* image.swift */,
+				9D8D117229FF0E8400062F53 /* CRUDFile.swift */,
 			);
 			path = ios.orgnize;
 			sourceTree = "<group>";
@@ -321,6 +326,7 @@
 				9D36D85029F768E300AA9E33 /* ongoingClock.swift in Sources */,
 				9D5440E329F6FBA100CBC64C /* ios_orgnizeApp.swift in Sources */,
 				9D7FFA2129F9EF6300EC7EBA /* editTasks.swift in Sources */,
+				9D8D117329FF0E8400062F53 /* CRUDFile.swift in Sources */,
 				9D36D85429F769AF00AA9E33 /* arcTaskGroup.swift in Sources */,
 				9DD1EF1829FDA14600B6BE34 /* image.swift in Sources */,
 			);
@@ -484,6 +490,7 @@
 				DEVELOPMENT_TEAM = P3RX89R4JA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ios-orgnize-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -517,6 +524,7 @@
 				DEVELOPMENT_TEAM = P3RX89R4JA;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ios-orgnize-Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

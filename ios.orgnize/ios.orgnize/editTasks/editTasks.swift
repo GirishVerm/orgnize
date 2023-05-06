@@ -107,7 +107,7 @@ struct editTasks: View {
                                     .foregroundColor(.gray)
                                     .onTapGesture{
                                         
-                                        var updatedGroup = groupObj.mainGroup[groupIndex]
+                                        let updatedGroup = groupObj.mainGroup[groupIndex]
                                         updatedGroup.tasks.append("")
                                         groupObj.mainGroup[groupIndex] = updatedGroup
                                         

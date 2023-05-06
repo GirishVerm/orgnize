@@ -44,24 +44,28 @@ struct taskList: View {
                             
                             ForEach(0..<groupObj.mainGroup.count, id: \.self){groupIndex in
                                 
-                                Section(header: Text(groupObj.mainGroup[groupIndex].heading)
-                                    .font((groupObj.mainGroup[groupIndex].id == groupObj.ongoingGroup) ?
-                                        .headline : .body)){
-                                    
-                                    ForEach(0..<groupObj.mainGroup[groupIndex].tasks.count, id: \.self){taskIndex in
+                                if(groupObj.mainGroup[groupIndex].id == groupObj.ongoingGroup){
+                                    Section(header: Text(groupObj.mainGroup[groupIndex].heading)
+                                        .font((groupObj.mainGroup[groupIndex].id == groupObj.ongoingGroup) ?
+                                            .headline : .body)){
                                         
-                                        TextField(
-                                            "Enter Task",
-                                            text: $groupObj.mainGroup[groupIndex].tasks[taskIndex]
-                                        )
-                                        
+                                        ForEach(0..<groupObj.mainGroup[groupIndex].tasks.count, id: \.self){taskIndex in
+                                            
+                                            TextField(
+                                                "Enter Task",
+                                                text: $groupObj.mainGroup[groupIndex].tasks[taskIndex]
+                                            )
+                                            
+                                        }
+                                                                       
                                     }
-                                                                   
+                                    .onTapGesture{
+                                        groupObj.focusGroup = groupObj.mainGroup[groupIndex].id
+                                        print(groupObj.focusGroup)
+                                    }
                                 }
-                                .onTapGesture{
-                                    groupObj.focusGroup = groupObj.mainGroup[groupIndex].id
-                                    print(groupObj.focusGroup)
-                                }
+                                
+                                
                                 
                                 
                                 
