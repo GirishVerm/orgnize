@@ -20,6 +20,49 @@ struct editTasks: View {
     @State private var presentAlert = false
     @State private var heading: String = ""
     
+    func getTime(position: CGPoint) -> String{
+        
+        var someDegree = asin((position.x - 100)/(CGFloat(200)/2))
+        someDegree = someDegree *  (180/(.pi)) - 90
+        
+        if -round(position.y - 100) < 0 {
+            someDegree = abs(someDegree)
+        }
+        
+        if someDegree + 90 < 0 {
+            //print("start:", startDegree, "end:", (360-abs(endDegree)) + 90)
+            //print("time:", round((12*((360 - abs(endDegree)) + 90))/360) == 0.0 ? 12.0 : (12*((360 - abs(endDegree)) + 90))/360)
+            
+            let time = ((12*((360 - abs(someDegree)) + 90))/360)
+            let hour = floor(time)
+            let minutes = floor((time - hour) * 60)
+            
+            
+            //startTime = String(Int(hour)) + ":" + String(Int(minutes))
+
+            return String(Int(hour)) + ":" + String(Int(minutes))
+
+
+            
+        }else{
+            //print("start:", startDegree, "end:", endDegree + 90)
+            //print("time:",  round((12*(endDegree + 90))/360) == 0.0 ? 12 : (12*(endDegree + 90))/360)
+            
+            let time = ((12*(someDegree + 90))/360)
+            let hour = floor(time)
+            let minutes = floor((time - hour) * 60)
+            
+            //startTime = String(Int(hour)) + ":" + String(Int(minutes))
+            
+            
+            return String(Int(hour)) + ":" + String(Int(minutes))
+       
+
+      
+        }
+        
+    }
+    
     var body: some View {
         
         NavigationView{
@@ -73,7 +116,7 @@ struct editTasks: View {
                         ForEach(0..<groupObj.mainGroup.count, id: \.self){groupIndex in
                             
                             
-                            Section(header: Text(groupObj.mainGroup[groupIndex].heading)
+                            Section(header: Text(groupObj.mainGroup[groupIndex].heading + " : " + getTime(position: groupObj.mainGroup[groupIndex].position1) + " - " + getTime(position: groupObj.mainGroup[groupIndex].position2))
                                 .font((groupObj.mainGroup[groupIndex].id == groupObj.focusGroup) ?
                                     .headline : .body)){
                                 
@@ -115,8 +158,20 @@ struct editTasks: View {
                                         
                                         
                                 }
+                                        
+                                        Text("Delete Task Group")
+                                            .foregroundColor(.red)
+                                            .onTapGesture{
+                                                
+                                                groupObj.mainGroup.remove(at: groupIndex)
+                                                
+                                                
+                                        }
+
+                                        
                                                                
                             }
+                                    
                             .onTapGesture{
                                 groupObj.focusGroup = groupObj.mainGroup[groupIndex].id
                                 print(groupObj.focusGroup)
